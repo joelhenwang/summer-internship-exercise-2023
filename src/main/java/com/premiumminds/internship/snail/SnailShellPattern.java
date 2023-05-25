@@ -68,9 +68,9 @@ class SnailShellPattern implements ISnailShellPattern {
 
 
     // Create visited matrix with same size as given matrix to know when to not visit a cell
-    int[][] visited = new int[matrix.length][matrix.length];
-    for (int[] visited_row : visited) {
-      Arrays.fill(visited_row, 0); // Fills the visited array with zeroes
+    boolean[][] visited = new boolean[matrix.length][matrix.length];
+    for (boolean[] visited_row : visited) {
+      Arrays.fill(visited_row, false); // Fills the visited array with zeroes
     }
 
 
@@ -100,17 +100,22 @@ class SnailShellPattern implements ISnailShellPattern {
 
     // Iterate over the cells of the matrix in a snailshell pattern
     while ( step < max_steps ){
-      if( withinBounds(row, col, matrix.length) && visited[row][col] == 0 ) {
+      // If the cell of current row and column is within the matrix bounds and has not been visited
+      // Add to path the value of the cell and set the cell as visited
+      if( withinBounds(row, col, matrix.length) && visited[row][col] == false ) {
         path[step] = matrix[row][col];
-        visited[row][col] = 1;
+        visited[row][col] = true;
         step++;
       }
       else {
+        // If the cell of current row and column is out of bounds or has been visited
+        // Go back to the previous cell and change to next direction in the queue
         row -= incrementNextRow(current_direction);
         col -= incrementNextColumn(current_direction);
         current_direction = directions.remove();
         directions.add( current_direction );
       }
+      // Set next current row and column
       row += incrementNextRow(current_direction);
       col += incrementNextColumn(current_direction);
     }
@@ -127,8 +132,6 @@ class SnailShellPattern implements ISnailShellPattern {
    */
   public Future<int[]> getSnailShell(final int[][] matrix) {
 
-    if( matrix.length == 0) throw new RuntimeException("Matrix has size 0");
-
     Future<int[]> result;
     result = executor.submit(new Callable<int[]>() {
                                @Override
@@ -142,6 +145,5 @@ class SnailShellPattern implements ISnailShellPattern {
                              });
     return result;
   }
-
 
 }
