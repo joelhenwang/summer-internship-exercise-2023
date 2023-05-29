@@ -43,7 +43,7 @@ class SnailShellPattern implements ISnailShellPattern {
   }
 
   /**
-   * Method to update the bounds of the transversal depending of its direction
+   * Method to update the bounds of the transversal depending on its direction
    *
    * @param current_direction Current direction of the transversal
    *
@@ -107,7 +107,7 @@ class SnailShellPattern implements ISnailShellPattern {
     lower_bound = matrix.length - 1;
 
 
-    // Given a N*N matrix, the max amount of steps in the path equals to
+    // Given an N*N matrix, the max amount of steps in the path equals to
     // the amount of cells of the given matrix
     int max_steps = (matrix.length * matrix.length);
 
