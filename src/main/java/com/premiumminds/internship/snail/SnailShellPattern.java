@@ -94,10 +94,11 @@ class SnailShellPattern implements ISnailShellPattern {
   private int[] snailShellPath (int[][] matrix){
     /// row and col are the coordinates of the cell that is being transversed
     // step is the number of cells that have been transversed
+    // current_direction is the current direction of the transversal
     int row = 0;
     int col = 0;
     int step = 0;
-
+    String current_direction;
 
     // Initiate boundaries of the transversal
     // Initial boundaries correspond to the first cell (0,0) and last cell of the matrix (N-1,N-1)
@@ -116,7 +117,7 @@ class SnailShellPattern implements ISnailShellPattern {
     // for the path itself and a Queue for the order of directions
     Queue<String> directions = new LinkedList<>();
     int[] path = new int[max_steps];
-    String current_direction;
+
 
     directions.add("Right");
     directions.add("Down");
@@ -157,8 +158,6 @@ class SnailShellPattern implements ISnailShellPattern {
 
     return path;
   }
-
-
 
 
 
